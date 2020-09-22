@@ -4,6 +4,7 @@ class Person {
         this.age = age;
     }
     toJSON(){
+        console.log('----toJSON()');
         const obj = {
             name: this.name,
             age: this.age,
@@ -12,5 +13,10 @@ class Person {
     }
 }
 
-module.exports = Person;
+// module.exports = Person;
+module.exports = {
+    Person,
+    f1:a=>a*a,
+};
 
+console.log('----01');
