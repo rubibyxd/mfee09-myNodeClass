@@ -17,11 +17,7 @@ const app = express();
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-
-app.use((req,res,next)=>{
-    res.locals.title = '壹定發柏青哥';
-    next();
-});
+app.use(require('cors')());
 
 app.use(session({
     saveUninitialized: false,
@@ -41,6 +37,12 @@ app.get('/try-session',(req,res)=>{
         session: req.session
     });
 })
+
+app.use((req,res,next)=>{
+    res.locals.title = '壹定發柏青哥';
+    res.locals.sess = req.session;
+    next();
+});
 
 app.get('/try-moment',(req,res)=>{
     const fm = 'YYYY-MM-DD HH:mm:ss';

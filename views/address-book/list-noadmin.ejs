@@ -32,11 +32,6 @@
             <!--`sid`, `name`, `email`, `mobile`, `birthday`, `address`-->
             <thead>
               <tr>
-                <th scope="col">
-                    <input type="checkbox" name="del-check-all" id="del-check-all">
-                </th>
-                <th scope="col"><i class="fas fa-edit"></i></th>
-                <th scope="col"><i class="fas fa-trash-alt"></i></th>
                 <th scope="col">#</th>
                 <th scope="col">name</th>
                 <th scope="col">email</th>
@@ -48,17 +43,6 @@
             <tbody>
               <% for(let i of rows){ %>  
               <tr>
-                <td scope="col">
-                    <input type="checkbox" name="del-check" class="del-check" data-sid="<%= i.sid %>">
-                </td>
-                <td scope="col">
-                    <a href="/address-book/edit/<%= i.sid %>">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                </td>
-                <td scope="col">
-                    <i class="fas fa-trash-alt" data-sid="<%= i.sid %>"></i>
-                </td>
                 <td><%= i.sid %></td>
                 <td><%= i.name %></td>
                 <td><%= i.email %></td>
@@ -69,53 +53,8 @@
             <% } %>
             </tbody>
           </table>
-          <button class="btn btn-danger" type="button" onclick="delAllBtn()">一鍵刪除</button>
     </div>
 </div>
 </div>
 <%- include('../parts/scripts') %>
-<script>
-    $('table tbody .fa-trash-alt').on('click',function(){
-        const sid = $(this).attr('data-sid');
-
-        fetch('/address-book/del/'+sid,{
-            method: 'DELETE'
-        })
-        .then(r=>r.json())
-        .then(obj=>{
-            console.log(obj);
-            location.reload();
-        })
-    });
-
-    let sidArr = [];
-
-    $('#del-check-all:checkbox').on('change',function(){
-        console.log('hi01');
-        $('.del-check:checkbox').prop("checked", !$('.del-check:checkbox').prop("checked"));
-        $('.del-check:checkbox').each(function(index){
-            console.log(index)
-        });
-    });
-
-    // $('tbody :checkbox')
-
-    $('.del-check:checkbox').on('change',function(){
-        console.log('hi');
-        // sidArr.push($(this).data('sid'));
-    });
-
-    function delAllBtn(){
-        
-        // if ($('.del-check').prop("checked")) {
-        //     sidArr.push($('.del-check').attr('data-sid'));
-        // }
-        console.log(sidArr);
-    }
-
-    // function remove(e){
-    //     // e.parentNode.parentNode.remove();
-    //     e.closest('tr').remove();
-    // };
-</script>
 <%- include('../parts/html_foot') %>
